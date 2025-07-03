@@ -1,3 +1,5 @@
+import ModeToggle from "@/components/ModeToggle";
+import { Button } from "@/components/ui/button";
 import {
   SignInButton,
   SignUpButton,
@@ -5,6 +7,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import Module from "module";
 
 export default function Home() {
   return (
@@ -19,6 +22,7 @@ export default function Home() {
       <SignedIn>
         <UserButton />
       </SignedIn>
+      <ModeToggle />
     </div>
   );
 }

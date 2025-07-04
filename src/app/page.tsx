@@ -1,5 +1,6 @@
 import CreatePost from "@/components/CreatePost";
 import ModeToggle from "@/components/ModeToggle";
+import WhoToFollow from "@/components/WhoToFollow";
 import { Button } from "@/components/ui/button";
 import {
   SignInButton,
@@ -24,8 +25,9 @@ export default async function Home() {
           ))}
         </div> */}
       </div>
+
       <div className="hidden lg:block lg:col-span-4 sticky top-20">
-        WhoToFollow
+        <WhoToFollow />
       </div>
     </div>
   );

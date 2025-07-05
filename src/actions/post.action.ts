@@ -18,7 +18,7 @@ export async function createPost(content: string, image: string) {
       },
     });
 
-    revalidatePath("/");
+    revalidatePath("/"); // purge the cache for the home page
     return { success: true, post };
   } catch (error) {
     console.error("Failed to create post:", error);
@@ -46,9 +46,9 @@ export async function getPosts() {
             author: {
               select: {
                 id: true,
+                username: true,
                 image: true,
                 name: true,
-                username: true,
               },
             },
           },
@@ -72,7 +72,7 @@ export async function getPosts() {
 
     return posts;
   } catch (error) {
-    console.log("Erron in getPosts", error);
+    console.log("Error in getPosts", error);
     throw new Error("Failed to fetch posts");
   }
 }

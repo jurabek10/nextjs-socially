@@ -1,14 +1,15 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card, CardContent } from "./ui/card";
 import { Avatar, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
+import { Button } from "./ui/button";
 import { createPost } from "@/actions/post.action";
 import toast from "react-hot-toast";
+import ImageUpload from "./ImageUpload";
 
 function CreatePost() {
   const { user } = useUser();
@@ -18,14 +19,15 @@ function CreatePost() {
   const [showImageUpload, setShowImageUpload] = useState(false);
 
   const handleSubmit = async () => {
-    if (!content.trim() && imageUrl) return;
+    if (!content.trim() && !imageUrl) return;
 
     setIsPosting(true);
     try {
       const result = await createPost(content, imageUrl);
-      if (result.success) {
-        setContent: "";
-        setImageUrl: "";
+      if (result?.success) {
+        // reset the form
+        setContent("");
+        setImageUrl("");
         setShowImageUpload(false);
 
         toast.success("Post created successfully");
@@ -55,7 +57,7 @@ function CreatePost() {
             />
           </div>
 
-          {/* {(showImageUpload || imageUrl) && (
+          {(showImageUpload || imageUrl) && (
             <div className="border rounded-lg p-4">
               <ImageUpload
                 endpoint="postImage"
@@ -66,7 +68,7 @@ function CreatePost() {
                 }}
               />
             </div>
-          )} */}
+          )}
 
           <div className="flex items-center justify-between border-t pt-4">
             <div className="flex space-x-2">
@@ -105,5 +107,4 @@ function CreatePost() {
     </Card>
   );
 }
-
 export default CreatePost;
